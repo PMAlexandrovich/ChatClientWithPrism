@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="ChatModule.Views.OutboxList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:helpers="clr-namespace:ChatModule.Helpers"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             x:Name="control">
+    <UserControl.Resources>
+        <helpers:BooleanToVisibilityConverter x:Key="VisConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <ListView ItemsSource="{Binding OutList}" HorizontalContentAlignment="Stretch">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel  HorizontalAlignment="Stretch" LastChildFill="False">
+                            <Grid DockPanel.Dock="Left" Margin="-1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Viewbox>
+                                    <materialDesign:PackIcon  Kind="AccountCircle" Width="30" Height="30"/>
+                                </Viewbox>
+                                <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"/>
+                            </Grid>
+                            <Viewbox Height="30" DockPanel.Dock="Right">
+                                <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Background="{DynamicResource MaterialDesignTextFieldBoxBackground}" DockPanel.Dock="Right" Command="{Binding ElementName=control, Path=DataContext.CancelRequest}" CommandParameter="{Binding Name}">
+                                    <materialDesign:PackIcon Kind="PersonRemove"/>
+                                </Button>
+                            </Viewbox>
+                            <Viewbox Height="30" DockPanel.Dock="Right">
+                                <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Background="{DynamicResource MaterialDesignTextFieldBoxBackground}" DockPanel.Dock="Right" Command="{Binding ElementName=control, Path=DataContext.SendAgain}" CommandParameter="{Binding Name}" IsEnabled="{Binding IsCanceled}">
+                                    <materialDesign:PackIcon Kind="PersonArrowLeft" />
+                                </Button>
+                            </Viewbox>
+                            <TextBlock DockPanel.Dock="Right" Text="Отклонен" Foreground="Red" Margin="0,0,5,0" Visibility="{Binding IsCanceled, Converter={StaticResource VisConverter}, Mode=OneWay}"  VerticalAlignment="Center"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </DockPanel>
+    </Grid>
+</UserControl>

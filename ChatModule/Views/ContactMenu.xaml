@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="ChatModule.Views.ContactMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"  
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <DockPanel>
+        <materialDesign:ColorZone Mode="Standard" DockPanel.Dock="Top" Height="50" materialDesign:ShadowAssist.ShadowDepth="Depth1" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal" Margin="4">
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" IsChecked="True" Click="RadioButton_Click" Content="Контакты" />
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" IsChecked="False" Click="RadioButton_Click_1" Content="Входящие" />
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" IsChecked="False" Click="RadioButton_Click_2" Content="Исходящие" />
+                <Button Content="Add Contact" Style="{StaticResource MaterialDesignOutlinedButton }" materialDesign:ButtonAssist.CornerRadius="18" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" DockPanel.Dock="Top" />
+            </StackPanel>
+        </materialDesign:ColorZone>
+        <Grid>
+            <ContentControl prism:RegionManager.RegionName="CurrentMenuContact"/>
+        </Grid>
+    </DockPanel>
+</UserControl>

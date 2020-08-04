@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="ChatModule.Views.InboxList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             x:Name="control">
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <ListView ItemsSource="{Binding InboxList, Mode=TwoWay}" HorizontalContentAlignment="Stretch">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel  HorizontalAlignment="Stretch" LastChildFill="False">
+                            <Grid DockPanel.Dock="Left" Margin="-1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Viewbox>
+                                    <materialDesign:PackIcon Kind="AccountCircle" Width="30" Height="30"/>
+                                </Viewbox>
+                                <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center"/>
+                            </Grid>
+                            <Viewbox Height="30" DockPanel.Dock="Right">
+                                <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Background="{DynamicResource MaterialDesignTextFieldBoxBackground}" DockPanel.Dock="Right" Command="{Binding ElementName=control, Path=DataContext.RejectRequest}" CommandParameter="{Binding Name}">
+                                    <materialDesign:PackIcon Kind="PersonRemove" />
+                                </Button>
+                            </Viewbox>
+                            <Viewbox Height="30" DockPanel.Dock="Right">
+                                <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Background="{DynamicResource MaterialDesignTextFieldBoxBackground}" DockPanel.Dock="Right" Command="{Binding ElementName=control, Path=DataContext.AcceptContact}" CommandParameter="{Binding Name}">
+                                    <materialDesign:PackIcon Kind="PersonTick" />
+                                </Button>
+                            </Viewbox>
+                        </DockPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </DockPanel>
+    </Grid>
+</UserControl>
